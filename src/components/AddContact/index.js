@@ -7,17 +7,13 @@ import Actions from "./../../store/actions/contacts";
 import "./style.sass";
 
 const AddContact = (props) => {
-  const contacts = useSelector((state) => state.contacts.list);
 
   const { total, show, closeModal } = props;
 
   const dispatch = useDispatch();
 
   const onSubmit = (values) => {
-    console.log(values);
-
-    console.log("submit");
-
+    
     let id = total + 1;
 
     let contact = {

@@ -3,23 +3,24 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+
 import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
-import history from './history'
 
 import createSagaMiddleware from 'redux-saga';
-import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { createStore, compose, applyMiddleware } from "redux";
+
+import history from './history'
 import reducers from "./store/reducers";
-import sagaWatcher  from './sagas';
+import sagaWatcher  from './store/sagas';
 
 const saga = createSagaMiddleware()
 
 const store = createStore(
   reducers,
   compose(
-    applyMiddleware(thunk, saga),
+    applyMiddleware(saga),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );

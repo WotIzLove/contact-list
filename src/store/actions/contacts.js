@@ -21,7 +21,7 @@ const receiveAddContacts = addedContact => ({
 });
 
 const requestUpdateContacts = (contact, id) => ({
-  type: Types.PRODUCTS_UPDATE_REQUEST,
+  type: Types.UPDATE_CONTACT_REQUEST,
   contact,
   id,
 });
@@ -46,7 +46,7 @@ const requestContact = id => ({
 });
 const receiveContact = contact => ({ 
   type: Types.RECEIVE_CONTACT,
-   contact
+  contact
 });
 
 

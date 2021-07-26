@@ -7,11 +7,10 @@ import Actions from "./../../store/actions/contacts";
 import "./style.sass";
 
 const Contact = () => {
+
   const { id } = useParams();
   const history = useHistory();
-
   const dispatch = useDispatch();
-
   const contact = useSelector((state) => state.contacts.contact);
 
   useEffect(() => {
@@ -24,16 +23,25 @@ const Contact = () => {
         <button className="button button_add" onClick={() => history.goBack()}>
           Go back
         </button>
-        <div>User {contact.id}</div>
+        <h2>User {contact.id}</h2>
         <div className="user">
-          <img classNmae="user__avatar" src={contact.avatar} />
+          <img className="user__avatar" src={contact.avatar} />
+          <div className="user__info">
+            <div className="user__field">
+              <span className="user__label">First name:</span>{" "}
+              <span className="user__value">{contact.first_name}</span>
+            </div>
+            <div className="user__field">
+            <span className="user__label">Last name:</span>{" "}
+            <span className="user__value"> {contact.last_name}</span>
+            </div>
+            <div className="user__field">
+              <span className="user__label">Email:</span>{" "}
+              <span className="user__value"> {contact.email}</span>
+            </div>
+             </div>
+          </div>
         </div>
-        <div className="user__info">
-          <div>{contact.first_name}</div>
-          <div>{contact.last_name}</div>
-          <div>{contact.email}</div>
-        </div>
-      </div>
     </>
   );
 };

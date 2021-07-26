@@ -20,18 +20,10 @@ const ContactList = () => {
   const dispatch = useDispatch();
 
   const contacts = useSelector((state) => state.contacts.list);
-
-  console.log(currentPage, contacts);
-
-  const [total, setTotal] = useState(null);
-
-  const [pagination, setPagination] = useState({
-    page: null,
-    per_page: null,
-    total_pages: null,
-  });
-
-  console.log(history);
+  const page = useSelector((state) => state.contacts.page);
+  const per_page = useSelector((state) => state.contacts.per_page);
+  const total = useSelector((state) => state.contacts.total);
+  const total_pages = useSelector((state) => state.contacts.total_pages);
 
   const isItemLoaded = (index) =>
     index < contacts.length && contacts[index] !== null;
@@ -45,6 +37,7 @@ const ContactList = () => {
   };
 
   const [show, setShow] = useState(false);
+  
   const openModal = () => setShow(true);
   const closeModal = () => setShow(false);
 
@@ -91,10 +84,10 @@ const ContactList = () => {
         </div>
       </div>
       <Pagination
-        activePage={pagination.page}
-        itemsCountPerPage={pagination.per_page}
+        activePage={page}
+        itemsCountPerPage={per_page}
         totalItemsCount={total}
-        pageRangeDisplayed={pagination.per_page}
+        pageRangeDisplayed={per_page}
         onChange={handlePageChange}
       />
     </>

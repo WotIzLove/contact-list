@@ -3,18 +3,15 @@ import Actions from "./../../store/actions/contacts";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import './style.sass'
+import "./style.sass";
 
 const ContactCard = ({ index, style, data }) => {
-  
-
   const name = data[index].first_name + " " + data[index].last_name;
   const email = data[index].email;
   const avatar = data[index].avatar;
-
   const dispatch = useDispatch();
+
   const [editMode, setEditMode] = useState(false);
-  
   const [inputs, setInputs] = useState({ name, email });
 
   const updateFormValue = ({ target: { name, value } }) =>
@@ -23,8 +20,8 @@ const ContactCard = ({ index, style, data }) => {
   const toggleEditMode = () => setEditMode((mode) => !mode);
 
   const updateContactData = () => {
-    let firstName = inputs.name.split(" ")[0];
-    let lastName = inputs.name.split(" ")[1];
+    let firstName = inputs.name.split(" ")[0] || "";
+    let lastName = inputs.name.split(" ")[1] || "";
     let contactData = {
       id: data[index].id,
       avatar: data[index].avatar,
@@ -34,7 +31,9 @@ const ContactCard = ({ index, style, data }) => {
     };
 
     dispatch(Actions.requestUpdateContacts(contactData, data[index].id));
+
     toggleEditMode();
+    
   };
 
   const deleteContactFromList = () => {
@@ -45,53 +44,48 @@ const ContactCard = ({ index, style, data }) => {
     <>
       <div className="card">
         <div className="card__header">
-
-        <div className="card__controls">
-        {!editMode && (
-           <>
-              <button
-                type="button"
-                className="button button_edit"
-                onClick={toggleEditMode}
-              >
-                <i className="fas fa-edit mr-2"></i>
-                Edit
-              </button>
-              <button
-                type="button"
-                className="button button_delete"
-                onClick={deleteContactFromList}
-              >
-                <i className="fas fa-trash mr-2"></i>
-                Delete
-              </button>
-            </>
-          )}
-          {editMode && (
-            <>
-              <button
-                type="button"
-                className="button button_edit"
-                onClick={updateContactData}
-              >
-                Save
-              </button>
-              <button
-                type="button"
-                className="button button_delete"
-                onClick={toggleEditMode}
-              >
-                Cancel
-              </button>
-            </>
-          )}
+          <div className="card__controls">
+            {!editMode && (
+              <>
+                <button
+                  type="button"
+                  className="button button_edit"
+                  onClick={toggleEditMode}
+                >
+                  <i className="fas fa-edit mr-2"></i>
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  className="button button_delete"
+                  onClick={deleteContactFromList}
+                >
+                  <i className="fas fa-trash mr-2"></i>
+                  Delete
+                </button>
+              </>
+            )}
+            {editMode && (
+              <>
+                <button
+                  type="button"
+                  className="button button_edit"
+                  onClick={updateContactData}
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  className="button button_delete"
+                  onClick={toggleEditMode}
+                >
+                  Cancel
+                </button>
+              </>
+            )}
           </div>
           <div className="card__image-wrapper">
-            <img
-              className="card__image"
-              src={avatar}
-              alt={name}
-            />
+            <img className="card__image" src={avatar} alt={name} />
           </div>
 
           <div className="card__description">
@@ -121,12 +115,11 @@ const ContactCard = ({ index, style, data }) => {
             </div>
             <div className="card__line"></div>
           </div>
-          </div>
+        </div>
 
-          <Link className="card__link" to={`/user/${data[index].id}`}>View user profile</Link>
-
-                
-         
+        <Link className="card__link" to={`/user/${data[index].id}`}>
+          View user profile
+        </Link>
       </div>
     </>
   );
